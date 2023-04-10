@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { Client } from 'pg';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 const client = new Client({
   user: 'root',
@@ -10,20 +11,22 @@ const client = new Client({
 });
 
 client.connect();
-client.query('SELECT * FROM products', (err, res) => {
-  console.error(err);
-  console.log(res.rows);
-});
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   // constructor(private readonly appService: AppService) {}
 
+  @ApiOperation({ description: 'get list of the user products' })
   @Get()
   getProductList(
     @Query('limit') limit: number,
     @Query('offset') offset = 20,
   ): string {
+    client.query('SELECT * FROM Products', (err, res) => {
+      console.error(err);
+      console.log(res);
+    });
     return `pagination limit: ${limit}, pagination: ${offset}`;
   }
 
