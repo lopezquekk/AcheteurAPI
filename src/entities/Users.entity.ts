@@ -6,10 +6,11 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Categories } from './Categories';
-import { Places } from './Places';
-import { Products } from './Products.entity';
-import { Countries } from './Countries';
+import { Categories } from './categories.entity';
+import { Places } from './places';
+import { Products } from './products.entity';
+import { Countries } from './countries.entity';
+import { Exclude } from 'class-transformer';
 
 @Index('Users_pkey', ['userId'], { unique: true })
 @Entity('users', { schema: 'public' })
@@ -38,6 +39,7 @@ export class Users {
   @Column('character varying', { name: 'email', nullable: true, length: 250 })
   email: string | null;
 
+  @Exclude()
   @Column('character varying', { name: 'password', nullable: true, length: 60 })
   password: string | null;
 

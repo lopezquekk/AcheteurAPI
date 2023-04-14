@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { Client } from 'pg';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { JWTAuthGuard } from 'src/auth/jwt.guard';
 
 const client = new Client({
   user: 'root',
@@ -17,6 +26,7 @@ client.connect();
 export class ProductsController {
   // constructor(private readonly appService: AppService) {}
 
+  @UseGuards(JWTAuthGuard)
   @ApiOperation({ description: 'get list of the user products' })
   @Get()
   getProductList(

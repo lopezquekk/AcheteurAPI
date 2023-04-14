@@ -9,7 +9,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './CreateUserDto';
+import { CreateUserDto } from './dtos/create.user.dto';
 
 @Controller('user')
 export class UserController {
@@ -17,7 +17,7 @@ export class UserController {
 
   @Get(':id')
   findUsersById(@Param('id', ParseUUIDPipe) id: string) {
-    return this.userService.findUsersById(id);
+    return this.userService.findById(id);
   }
 
   @Post('create')

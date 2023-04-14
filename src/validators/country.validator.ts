@@ -12,14 +12,10 @@ export class CountryExistsRule implements ValidatorConstraintInterface {
   constructor(private readonly userService: UserService) {}
   async validate(value: string) {
     try {
-      await this.userService.findUsersById(value);
-      console.log('pasa');
+      await this.userService.findById(value);
     } catch (e) {
-      console.log('pasa1');
-      console.log(e);
       return false;
     }
-    console.log('pasa2');
     return true;
   }
 

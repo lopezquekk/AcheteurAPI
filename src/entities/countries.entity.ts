@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { Cities } from './Cities';
+import { Cities } from './cities.entity';
 import { Users } from './users.entity';
 
 @Index('Countries_pkey', ['countryId'], { unique: true })

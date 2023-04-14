@@ -1,9 +1,9 @@
 import { Users } from './users.entity';
-import { Cities } from './Cities';
-import { Categories } from './Categories';
-import { Countries } from './Countries';
-import { Places } from './Places';
-import { Products } from './Products.entity';
+import { Cities } from './cities.entity';
+import { Categories } from './categories.entity';
+import { Countries } from './countries.entity';
+import { Places } from './places';
+import { Products } from './products.entity';
 
 const entities = [Users, Cities, Categories, Countries, Places, Products];
 

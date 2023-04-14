@@ -1,5 +1,5 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
-import { Countries } from './Countries';
+import { Countries } from './countries.entity';
 
 @Index('Cities_pkey', ['cityId'], { unique: true })
 @Entity('cities', { schema: 'public' })
