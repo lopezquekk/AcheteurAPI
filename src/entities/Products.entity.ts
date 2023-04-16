@@ -1,5 +1,5 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
-import { Users } from './users.entity';
+import { User } from './entities';
 
 @Index('products_pkey', ['productId'], { unique: true })
 @Entity('products', { schema: 'public' })
@@ -27,7 +27,7 @@ export class Products {
   @Column('date', { name: 'due_date', nullable: true })
   dueDate: string | null;
 
-  @ManyToOne(() => Users, (users) => users.products)
+  @ManyToOne(() => User, (user) => user.products)
   @JoinColumn([{ name: 'userId', referencedColumnName: 'userId' }])
-  user: Users;
+  user: User;
 }

@@ -4,7 +4,7 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator';
-import { UserService } from './../user/user.service';
+import { UserService } from '../modules/user/user.service';
 
 @ValidatorConstraint({ name: 'CountryExists', async: true })
 @Injectable()

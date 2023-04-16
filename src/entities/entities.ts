@@ -7,5 +7,6 @@ import { Products } from './products.entity';
 
 const entities = [Users, Cities, Categories, Countries, Places, Products];
 
-export { Users };
+export { Users as User };
+export { Products };
 export default entities;

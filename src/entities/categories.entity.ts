@@ -1,5 +1,5 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
-import { Users } from './users.entity';
+import { User } from './entities';
 
 @Index('Categories_pkey', ['categoryId'], { unique: true })
 @Entity('categories', { schema: 'public' })
@@ -17,7 +17,7 @@ export class Categories {
   @Column('character varying', { name: 'icon', nullable: true, length: 200 })
   icon: string | null;
 
-  @ManyToOne(() => Users, (users) => users.categories)
+  @ManyToOne(() => User, (user) => user.categories)
   @JoinColumn([{ name: 'userId', referencedColumnName: 'userId' }])
-  user: Users;
+  user: User;
 }

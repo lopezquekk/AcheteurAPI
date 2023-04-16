@@ -5,7 +5,7 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { CountryExistsRule } from '../../validators/country.validator';
+import { CountryExistsRule } from '../../../validators/country.validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class CreateUserDto {

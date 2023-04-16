@@ -7,37 +7,24 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { Client } from 'pg';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { JWTAuthGuard } from 'src/auth/jwt.guard';
-
-const client = new Client({
-  user: 'root',
-  host: 'localhost',
-  database: 'acheteur_db',
-  password: '123456',
-  port: 5432,
-});
-
-client.connect();
+import { Products } from 'src/entities/entities';
+import { JWTAuthGuard } from 'src/modules/auth/jwt.guard';
+import { ProductsService } from './products.service';
 
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
-  // constructor(private readonly appService: AppService) {}
+  constructor(private productsService: ProductsService) {}
 
   @UseGuards(JWTAuthGuard)
   @ApiOperation({ description: 'get list of the user products' })
   @Get()
-  getProductList(
-    @Query('limit') limit: number,
+  async getProductList(
+    @Query('limit') limit = 10,
     @Query('offset') offset = 20,
-  ): string {
-    client.query('SELECT * FROM Products', (err, res) => {
-      console.error(err);
-      console.log(res);
-    });
-    return `pagination limit: ${limit}, pagination: ${offset}`;
+  ): Promise<Products[]> {
+    return this.productsService.findAll(limit, offset);
   }
 
   @Post()
