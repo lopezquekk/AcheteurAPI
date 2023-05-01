@@ -11,6 +11,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { Products } from 'src/entities/entities';
 import { JWTAuthGuard } from 'src/modules/auth/jwt.guard';
 import { ProductsService } from './products.service';
+import { User } from '../auth/decorator/user.decorator';
 
 @ApiTags('Products')
 @Controller('products')
@@ -21,10 +22,11 @@ export class ProductsController {
   @ApiOperation({ description: 'get list of the user products' })
   @Get()
   async getProductList(
+    @User('userId') userId: string,
     @Query('limit') limit = 10,
     @Query('offset') offset = 20,
   ): Promise<Products[]> {
-    return this.productsService.findAll(limit, offset);
+    return await this.productsService.findAll(limit, offset, userId);
   }
 
   @Post()

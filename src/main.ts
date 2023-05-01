@@ -7,8 +7,10 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
-    .setTitle('API')
-    .setDescription('Groseries controller')
+    .setTitle('ACHET API')
+    .setDescription(
+      'Groseries inventory: base URL -> http://192.168.68.111:3000',
+    )
     .setVersion('1.0')
     .build();
 

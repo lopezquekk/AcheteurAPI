@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ProductsController } from './modules/products/products.controller';
 import { UserModule } from './modules/user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -42,7 +41,6 @@ import * as Joi from 'joi';
     AuthModule,
     ProductsModule,
   ],
-  controllers: [ProductsController],
   providers: [AppService],
 })
 export class AppModule {}

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Products } from 'src/entities/entities';
+import { Products, User } from 'src/entities/entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -9,11 +9,15 @@ export class ProductsService {
     @InjectRepository(Products) private productRepo: Repository<Products>,
   ) {}
 
-  findAll(limit = 20, offset = 20) {
+  findAll(limit = 10, offset = 1, userId: string) {
     return this.productRepo.find({
-      relations: ['users'],
+      relations: ['user'],
+      where: {
+        user: {
+          userId: userId,
+        },
+      },
       take: limit,
-      skip: offset,
     });
   }
 }
