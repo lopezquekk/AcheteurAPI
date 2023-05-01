@@ -18,7 +18,7 @@ import { ConfigService } from '@nestjs/config';
         return {
           secret: configService.get<string>('JWT_SECRET'),
           signOptions: {
-            expiresIn: '10d',
+            expiresIn: '5d',
           },
         };
       },

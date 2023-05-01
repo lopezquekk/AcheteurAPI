@@ -52,6 +52,18 @@ export class Users {
   })
   username: string | null;
 
+  @Column('bool', {
+    default: () => 'false',
+    name: 'is_active',
+  })
+  isActive: boolean;
+
+  @Column('bool', {
+    default: () => 'false',
+    name: 'is_confirmed',
+  })
+  isConfirmed: boolean;
+
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',

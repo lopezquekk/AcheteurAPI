@@ -60,7 +60,13 @@ export class UserService {
     return this.userRepository.findOne({ where: { email } });
   }
 
-  private buildUserRO(user: User) {
+  async findActiveUserByEmail(email: string): Promise<User | undefined> {
+    return this.userRepository.findOne({
+      where: { email: email, isActive: true },
+    });
+  }
+
+  buildUserRO(user: User) {
     const token = this.authService.generateJWT(user);
     const userRO = {
       id: user.userId,
@@ -68,6 +74,8 @@ export class UserService {
       email: user.email,
       country: user.country,
       token: token.access_token,
+      isActive: user.isActive,
+      isConfirmed: user.isConfirmed,
     };
 
     return { user: userRO };
