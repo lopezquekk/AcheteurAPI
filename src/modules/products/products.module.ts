@@ -5,20 +5,17 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Products, User } from 'src/entities/entities';
+import { Products } from 'src/entities/entities';
 import { UserExistsRule } from 'src/validators/user.validator';
 import { AuthMiddleware } from '../auth/middleware/auth.middleware';
-import { UserService } from '../user/user.service';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
+import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Products]),
-    TypeOrmModule.forFeature([User]),
-  ],
+  imports: [TypeOrmModule.forFeature([Products]), UserModule],
   controllers: [ProductsController],
-  providers: [ProductsService, UserExistsRule, UserService],
+  providers: [ProductsService, UserExistsRule],
 })
 export class ProductsModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {

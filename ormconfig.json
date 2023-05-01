@@ -8,6 +8,6 @@
     "password": "123456",
     "database": "",
     "synchronize": false,
-    "entities": ["entities/*.js"]
+    "entities": ["entities/*.ts"]
   }
 ]

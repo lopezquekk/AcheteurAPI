@@ -1,5 +1,13 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
-import { Countries } from './countries.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Country } from './entities';
 
 @Index('Cities_pkey', ['cityId'], { unique: true })
 @Entity('cities', { schema: 'public' })
@@ -10,7 +18,20 @@ export class Cities {
   @Column('text', { name: 'name', nullable: true })
   name: string | null;
 
-  @ManyToOne(() => Countries, (countries) => countries.cities)
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @ManyToOne(() => Country, (country) => country.cities)
   @JoinColumn([{ name: 'country_id', referencedColumnName: 'countryId' }])
-  country: Countries;
+  country: Country;
 }

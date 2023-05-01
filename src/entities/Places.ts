@@ -1,4 +1,12 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Users } from './users.entity';
 
 @Index('Places_pkey', ['placeId'], { unique: true })
@@ -23,6 +31,19 @@ export class Places {
 
   @Column('integer', { name: 'city_id', nullable: true })
   cityId: number | null;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 
   @ManyToOne(() => Users, (users) => users.places)
   @JoinColumn([{ name: 'user_id', referencedColumnName: 'userId' }])

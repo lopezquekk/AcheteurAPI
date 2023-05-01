@@ -1,10 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Categories } from './categories.entity';
 import { Places } from './places';
@@ -39,7 +41,7 @@ export class Users {
   @Column('character varying', { name: 'email', nullable: true, length: 250 })
   email: string | null;
 
-  @Exclude()
+  @Exclude({ toPlainOnly: true })
   @Column('character varying', { name: 'password', nullable: true, length: 60 })
   password: string | null;
 
@@ -49,6 +51,19 @@ export class Users {
     length: 100,
   })
   username: string | null;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 
   @OneToMany(() => Categories, (categories) => categories.user)
   categories: Categories[];

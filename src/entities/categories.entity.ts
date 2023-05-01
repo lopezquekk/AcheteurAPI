@@ -1,4 +1,12 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  UpdateDateColumn,
+} from 'typeorm';
 import { User } from './entities';
 
 @Index('Categories_pkey', ['categoryId'], { unique: true })
@@ -16,6 +24,19 @@ export class Categories {
 
   @Column('character varying', { name: 'icon', nullable: true, length: 200 })
   icon: string | null;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.categories)
   @JoinColumn([{ name: 'userId', referencedColumnName: 'userId' }])

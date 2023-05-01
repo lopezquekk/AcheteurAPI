@@ -9,4 +9,5 @@ const entities = [Users, Cities, Categories, Countries, Places, Products];
 
 export { Users as User };
 export { Products };
+export { Countries as Country };
 export default entities;

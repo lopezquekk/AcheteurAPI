@@ -7,6 +7,7 @@ import entities from './entities/entities';
 import { environments } from './environments';
 import { AuthModule } from './modules/auth/auth.module';
 import { ProductsModule } from './modules/products/products.module';
+import { CountryModule } from './modules/country/country.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -40,6 +41,7 @@ import * as Joi from 'joi';
     UserModule,
     AuthModule,
     ProductsModule,
+    CountryModule,
   ],
   providers: [AppService],
 })

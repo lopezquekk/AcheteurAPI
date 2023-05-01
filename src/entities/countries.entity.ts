@@ -1,4 +1,11 @@
-import { Column, Entity, Index, OneToMany } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  OneToMany,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Cities } from './cities.entity';
 import { Users } from './users.entity';
 
@@ -14,6 +21,19 @@ export class Countries {
 
   @Column('text', { name: 'name', nullable: true })
   name: string | null;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 
   @OneToMany(() => Cities, (cities) => cities.country)
   cities: Cities[];
